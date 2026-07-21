@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tournament Rulebook — Badminton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-900:#0d3628;
+    --green-800:#123f30;
+    --green-700:#1a5a44;
+    --green-600:#227054;
+    --gold:#e3a73a;
+    --gold-deep:#c98a1f;
+    --gold-soft:#f5e3bf;
+    --ink:#191c19;
+    --muted:#5d635c;
+    --bg:#f4f5f1;
+    --card:#ffffff;
+    --line:#e4e7e0;
+    --warn:#b8442b;
+    --radius:14px;
+    --maxw:920px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Inter",system-ui,-apple-system,sans-serif;
+    font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px;}
+
+  /* ---------- print button ---------- */
+  .print-btn{
+    position:fixed; top:18px; right:18px; z-index:50;
+    font-family:"Archivo",sans-serif; font-weight:700; font-size:.82rem;
+    letter-spacing:.03em; text-transform:uppercase;
+    color:var(--green-800); background:#fff; border:1.5px solid var(--green-800);
+    padding:10px 16px; border-radius:999px; cursor:pointer;
+    box-shadow:0 4px 16px rgba(13,54,40,.18); transition:transform .15s, background .15s, color .15s;
+  }
+  .print-btn:hover{background:var(--green-800); color:#fff; transform:translateY(-1px);}
+  .print-btn:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(120% 120% at 85% -10%, var(--green-700) 0%, var(--green-800) 45%, var(--green-900) 100%);
+  }
+  .hero__court{position:absolute; inset:0; width:100%; height:100%; opacity:.13; pointer-events:none;}
+  .hero__inner{
+    position:relative; z-index:2;
+    max-width:var(--maxw); margin:0 auto; padding:74px 22px 60px;
+    display:flex; align-items:center; gap:28px; flex-wrap:wrap;
+  }
+  .hero__text{flex:1 1 420px; min-width:0;}
+  .eyebrow{
+    font-family:"Archivo",sans-serif; font-weight:700; font-size:.8rem;
+    letter-spacing:.28em; text-transform:uppercase; color:var(--gold);
+    margin:0 0 14px; display:flex; align-items:center; gap:12px;
+  }
+  .eyebrow::before{content:""; width:34px; height:2px; background:var(--gold); display:inline-block;}
+  .hero h1{
+    font-family:"Archivo",sans-serif; font-weight:900; text-transform:uppercase;
+    font-size:clamp(2.7rem,7.4vw,5.1rem); line-height:.92; letter-spacing:-.015em;
+    margin:0 0 20px;
+  }
+  .hero h1 span{color:var(--gold);}
+  .hero__sub{font-size:1.06rem; color:#dce7e0; max-width:44ch; margin:0;}
+  .hero__shuttle{flex:0 0 auto; width:150px; height:190px; filter:drop-shadow(0 12px 24px rgba(0,0,0,.28));}
+  @media (max-width:640px){ .hero__shuttle{width:104px; height:132px;} .hero__inner{padding:60px 22px 44px;} }
+
+  /* ---------- at a glance ---------- */
+  .glance{background:var(--green-900); border-top:3px solid var(--gold);}
+  .glance__grid{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:1px;
+    max-width:var(--maxw); margin:0 auto; background:rgba(255,255,255,.08);
+  }
+  .glance__cell{background:var(--green-900); padding:16px 18px;}
+  .glance__k{font-family:"Archivo",sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--gold-soft); opacity:.85; margin:0 0 5px;}
+  .glance__v{font-family:"Archivo",sans-serif; font-weight:700; font-size:.98rem; color:#fff; line-height:1.2;}
+  @media (max-width:820px){ .glance__grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:480px){ .glance__grid{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- contents ---------- */
+  .toc{padding:44px 0 8px;}
+  .toc h2{font-family:"Archivo",sans-serif; font-weight:800; text-transform:uppercase;
+    letter-spacing:.04em; font-size:1.05rem; color:var(--green-800); margin:0 0 18px;}
+  .toc__grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px 26px;}
+  .toc__grid a{
+    display:flex; gap:12px; align-items:baseline; text-decoration:none; color:var(--ink);
+    padding:8px 10px; border-radius:8px; border:1px solid transparent; transition:background .12s,border-color .12s;
+    font-size:.95rem;
+  }
+  .toc__grid a:hover{background:#fff; border-color:var(--line);}
+  .toc__grid a:focus-visible{outline:3px solid var(--gold); outline-offset:1px;}
+  .toc__grid .n{font-family:"Archivo",sans-serif; font-weight:800; color:var(--gold-deep); font-size:.82rem; min-width:22px;}
+  @media (max-width:560px){ .toc__grid{grid-template-columns:1fr;} }
+
+  /* ---------- rules ---------- */
+  main{padding:26px 0 20px;}
+  .rule{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px 28px; margin:16px 0; scroll-margin-top:20px;
+  }
+  .rule__head{display:flex; align-items:center; gap:16px; margin:0 0 4px;}
+  .rule__num{
+    font-family:"Archivo",sans-serif; font-weight:900; font-size:1.5rem; line-height:1;
+    color:var(--green-700); background:var(--gold-soft);
+    width:46px; height:46px; border-radius:11px; display:grid; place-items:center; flex:0 0 auto;
+  }
+  .rule__title{
+    font-family:"Archivo",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.02em;
+    font-size:1.28rem; color:var(--green-800); margin:0;
+  }
+  .rule__body{padding-top:14px;}
+  .subhead{
+    font-family:"Inter",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.07em;
+    font-size:.76rem; color:var(--muted); margin:18px 0 8px;
+  }
+  .ruleset{list-style:none; margin:0; padding:0;}
+  .ruleset li{position:relative; padding:5px 0 5px 26px;}
+  .ruleset li::before{
+    content:""; position:absolute; left:4px; top:13px; width:8px; height:8px;
+    border-radius:2px; background:var(--gold); transform:rotate(45deg);
+  }
+  .ruleset.warn li::before{background:var(--warn); border-radius:50%; transform:none; top:12px; width:7px; height:7px;}
+  .lead{margin:0 0 6px; color:var(--ink);}
+  .note{font-size:.92rem; color:var(--muted); margin:14px 0 0;}
+
+  /* ---------- callout ---------- */
+  .callout{
+    border-left:4px solid var(--gold); background:linear-gradient(90deg,rgba(227,167,58,.12),rgba(227,167,58,0));
+    padding:14px 18px; border-radius:0 10px 10px 0; margin:4px 0;
+  }
+  .callout strong{color:var(--green-800);}
+
+  /* ---------- escalation ---------- */
+  .escalate{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .escalate span{
+    font-family:"Archivo",sans-serif; font-weight:600; font-size:.82rem;
+    background:#fbf7ee; border:1px solid var(--gold-soft); color:var(--green-800);
+    padding:7px 13px; border-radius:999px; display:inline-flex; align-items:center;
+  }
+  .escalate span:not(:first-child)::before{content:"→"; color:var(--gold-deep); margin-right:9px; font-weight:700;}
+
+  /* ---------- prizes ---------- */
+  .prizes{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:4px 0 2px;}
+  .prize{
+    border:1px solid var(--line); border-radius:12px; padding:20px 22px; background:#fff;
+    display:flex; flex-direction:column; gap:3px;
+  }
+  .prize--gold{border:1.5px solid var(--gold); background:linear-gradient(160deg,#fffaf0,#fdf3df);}
+  .prize__place{font-family:"Archivo",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+    font-size:.8rem; color:var(--gold-deep);}
+  .prize__amt{font-family:"Archivo",sans-serif; font-weight:900; font-size:2.2rem; color:var(--green-800); line-height:1.05;}
+  .prize__extra{font-size:.9rem; color:var(--muted);}
+  @media (max-width:480px){ .prizes{grid-template-columns:1fr;} }
+
+  /* ---------- footer ---------- */
+  .foot{background:var(--green-900); color:#cfe0d7; margin-top:30px;}
+  .foot__inner{max-width:var(--maxw); margin:0 auto; padding:36px 22px; text-align:center;}
+  .foot__binding{font-family:"Archivo",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+    color:#fff; font-size:1rem; margin:0 0 6px;}
+  .foot small{color:#9fb6ab; font-size:.85rem;}
+  .foot__mark{width:26px; height:33px; margin:0 auto 16px; display:block; opacity:.9;}
+
+  /* ---------- print ---------- */
+  @media print{
+    :root{--bg:#fff;}
+    body{font-size:11.5pt;}
+    .print-btn{display:none !important;}
+    .hero,.glance,.foot{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .hero__inner{padding:26px 0;}
+    .toc{display:none;}
+    .rule{border:1px solid #ccc; box-shadow:none; break-inside:avoid; page-break-inside:avoid; margin:10px 0; padding:16px 18px;}
+    .prize,.callout,.escalate{break-inside:avoid;}
+    @page{margin:14mm;}
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <svg class="hero__court" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#ffffff" stroke-width="1.4">
+      <rect x="40" y="24" width="320" height="172"/>
+      <line x1="40" y1="46" x2="360" y2="46"/>
+      <line x1="40" y1="174" x2="360" y2="174"/>
+      <line x1="128" y1="24" x2="128" y2="196"/>
+      <line x1="272" y1="24" x2="272" y2="196"/>
+      <line x1="200" y1="24" x2="200" y2="110" stroke-dasharray="1 0"/>
+      <line x1="200" y1="110" x2="200" y2="196"/>
+      <line x1="40" y1="110" x2="360" y2="110" stroke-width="2"/>
+      <line x1="54" y1="24" x2="54" y2="196"/>
+      <line x1="346" y1="24" x2="346" y2="196"/>
+    </g>
+  </svg>
+  <div class="hero__inner">
+    <div class="hero__text">
+      <p class="eyebrow">Badminton · Rules &amp; Regulations</p>
+      <h1>Tournament<br><span>Rulebook</span></h1>
+      <p class="hero__sub">Everything that governs match day — please read carefully before you step on court.</p>
+    </div>
+    <svg class="hero__shuttle" viewBox="0 0 120 150" aria-hidden="true">
+      <!-- feather skirt -->
+      <path d="M44 66 L18 20 L102 20 L76 66 Z" fill="#ffffff" fill-opacity=".92"/>
+      <path d="M44 66 L18 20 L102 20 L76 66 Z" fill="none" stroke="#0d3628" stroke-width="1.2" stroke-opacity=".25"/>
+      <g stroke="#0d3628" stroke-opacity=".22" stroke-width="1.1">
+        <line x1="60" y1="66" x2="60" y2="20"/>
+        <line x1="52" y1="66" x2="39" y2="20"/>
+        <line x1="68" y1="66" x2="81" y2="20"/>
+        <line x1="47" y1="52" x2="93" y2="52"/>
+        <line x1="43" y1="38" x2="97" y2="38"/>
+      </g>
+      <!-- cork -->
+      <path d="M42 66 Q42 92 60 100 Q78 92 78 66 Z" fill="#e3a73a"/>
+      <path d="M42 66 L78 66" stroke="#c98a1f" stroke-width="3"/>
+      <ellipse cx="60" cy="99" rx="10" ry="6" fill="#c98a1f"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ============ AT A GLANCE ============ -->
+<section class="glance" aria-label="At a glance">
+  <div class="glance__grid">
+    <div class="glance__cell"><p class="glance__k">Format</p><p class="glance__v">Knockout</p></div>
+    <div class="glance__cell"><p class="glance__k">Matches</p><p class="glance__v">1 game · 21 pts</p></div>
+    <div class="glance__cell"><p class="glance__k">Finals</p><p class="glance__v">Best of 3 · 15</p></div>
+    <div class="glance__cell"><p class="glance__k">Shuttle</p><p class="glance__v">Yonex Mavis 350</p></div>
+    <div class="glance__cell"><p class="glance__k">Reporting</p><p class="glance__v">30 min early</p></div>
+    <div class="glance__cell"><p class="glance__k">Prize pool</p><p class="glance__v">₹7,000 + trophies</p></div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- ============ CONTENTS ============ -->
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <div class="toc__grid">
+      <a href="#s1"><span class="n">01</span> Reporting &amp; Check-in</a>
+      <a href="#s2"><span class="n">02</span> Match Format</a>
+      <a href="#s3"><span class="n">03</span> Scoring System</a>
+      <a href="#s4"><span class="n">04</span> Warm-up</a>
+      <a href="#s5"><span class="n">05</span> Shuttle Policy</a>
+      <a href="#s6"><span class="n">06</span> Equipment &amp; Dress Code</a>
+      <a href="#s7"><span class="n">07</span> Court Allocation</a>
+      <a href="#s8"><span class="n">08</span> Walkovers</a>
+      <a href="#s9"><span class="n">09</span> Line Calls &amp; Disputes</a>
+      <a href="#s10"><span class="n">10</span> Medical &amp; Injury</a>
+      <a href="#s11"><span class="n">11</span> Player Conduct</a>
+      <a href="#s12"><span class="n">12</span> Prize Distribution</a>
+      <a href="#s13"><span class="n">13</span> Tournament Schedule</a>
+      <a href="#s14"><span class="n">14</span> Refreshments</a>
+      <a href="#s15"><span class="n">15</span> Liability</a>
+      <a href="#s16"><span class="n">16</span> Tournament Committee</a>
+    </div>
+  </nav>
+
+  <!-- ============ RULES ============ -->
+  <main>
+
+    <section class="rule" id="s1" aria-labelledby="s1t">
+      <div class="rule__head"><span class="rule__num">01</span><h2 class="rule__title" id="s1t">Reporting &amp; Check-in</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>Report to the registration desk at least <strong>30 minutes</strong> before your first scheduled match.</li>
+        <li>Stay available throughout the tournament until you are eliminated.</li>
+        <li>Once a match is announced, report to the assigned court immediately.</li>
+        <li>Failing to report within <strong>10 minutes</strong> of the scheduled match time may result in a walkover.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s2" aria-labelledby="s2t">
+      <div class="rule__head"><span class="rule__num">02</span><h2 class="rule__title" id="s2t">Match Format</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>The tournament follows a <strong>knockout</strong> format.</li>
+        <li>All matches before the finals are a single game to <strong>21 points</strong>.</li>
+        <li>The finals are <strong>best of three games to 15 points</strong> (or another format announced before play if time is constrained).</li>
+        <li>The Tournament Committee may modify the match format if required by time constraints or unforeseen circumstances.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s3" aria-labelledby="s3t">
+      <div class="rule__head"><span class="rule__num">03</span><h2 class="rule__title" id="s3t">Scoring System</h2></div>
+      <div class="rule__body">
+        <div class="callout"><strong>Golden point.</strong> At 20–20, the side that wins the next rally wins the game (game point at 21).</div>
+      </div>
+    </section>
+
+    <section class="rule" id="s4" aria-labelledby="s4t">
+      <div class="rule__head"><span class="rule__num">04</span><h2 class="rule__title" id="s4t">Warm-up</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>A maximum of <strong>2 minutes</strong> is allowed for on-court warm-up.</li>
+        <li>Complete your stretching and practice outside the playing courts before your match.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s5" aria-labelledby="s5t">
+      <div class="rule__head"><span class="rule__num">05</span><h2 class="rule__title" id="s5t">Shuttle Policy</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li><strong>Yonex Mavis 350</strong> nylon shuttlecocks are used throughout the tournament.</li>
+        <li>Tournament shuttles are provided only by the organizers.</li>
+        <li>Players may not replace tournament shuttles with personal shuttlecocks during official matches.</li>
+        <li>The court marshal decides when a shuttle needs to be replaced.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s6" aria-labelledby="s6t">
+      <div class="rule__head"><span class="rule__num">06</span><h2 class="rule__title" id="s6t">Equipment &amp; Dress Code</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>Indoor <strong>non-marking</strong> badminton shoes are mandatory.</li>
+        <li>Players bring their own racquets and other personal equipment.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s7" aria-labelledby="s7t">
+      <div class="rule__head"><span class="rule__num">07</span><h2 class="rule__title" id="s7t">Court Allocation</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>Court assignments are made solely by the Tournament Committee.</li>
+        <li>Players may not request a change of court.</li>
+        <li>Organizers may shift matches between courts whenever necessary.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s8" aria-labelledby="s8t">
+      <div class="rule__head"><span class="rule__num">08</span><h2 class="rule__title" id="s8t">Walkovers</h2></div>
+      <div class="rule__body">
+        <p class="lead">A walkover may be awarded if a player or team:</p>
+        <ul class="ruleset">
+          <li>Fails to report within the permitted time (10 minutes of announcement).</li>
+          <li>Withdraws from the match.</li>
+          <li>Refuses to play.</li>
+          <li>Is disqualified by the Tournament Committee.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="rule" id="s9" aria-labelledby="s9t">
+      <div class="rule__head"><span class="rule__num">09</span><h2 class="rule__title" id="s9t">Line Calls &amp; Disputes</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>In a disagreement, the court marshal or tournament official makes the final decision.</li>
+        <li>Unsportsmanlike arguments or repeated disputes may result in disqualification.</li>
+        <li>Call line decisions honestly and treat opponents, volunteers, and organizers with respect. Any attempt to gain an unfair advantage through deception may result in disqualification.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s10" aria-labelledby="s10t">
+      <div class="rule__head"><span class="rule__num">10</span><h2 class="rule__title" id="s10t">Medical &amp; Injury</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>Players may request a medical timeout in case of injury.</li>
+        <li>Medical timeouts are granted only for genuine injuries and generally will not exceed <strong>five minutes</strong>.</li>
+        <li>If a player cannot continue after the allotted time, the opponent is declared the winner.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s11" aria-labelledby="s11t">
+      <div class="rule__head"><span class="rule__num">11</span><h2 class="rule__title" id="s11t">Player Conduct</h2></div>
+      <div class="rule__body">
+        <p class="lead">Players are expected to maintain the highest standards of sportsmanship. The following is strictly prohibited:</p>
+        <ul class="ruleset warn">
+          <li>Abusive or offensive language.</li>
+          <li>Throwing racquets or damaging equipment.</li>
+          <li>Deliberately delaying matches.</li>
+          <li>Intimidating opponents or officials.</li>
+          <li>Physical or verbal altercations.</li>
+          <li>Any form of cheating or misrepresentation.</li>
+        </ul>
+        <p class="subhead">Violations may escalate</p>
+        <div class="escalate">
+          <span>Verbal warning</span>
+          <span>Point penalty</span>
+          <span>Match forfeiture</span>
+          <span>Disqualification</span>
+          <span>Removal from venue</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="rule" id="s12" aria-labelledby="s12t">
+      <div class="rule__head"><span class="rule__num">12</span><h2 class="rule__title" id="s12t">Prize Distribution</h2></div>
+      <div class="rule__body">
+        <div class="prizes">
+          <div class="prize prize--gold">
+            <span class="prize__place">Winner</span>
+            <span class="prize__amt">₹5,000</span>
+            <span class="prize__extra">+ Trophy</span>
+          </div>
+          <div class="prize">
+            <span class="prize__place">Runner-up</span>
+            <span class="prize__amt">₹2,000</span>
+            <span class="prize__extra">+ Trophy</span>
+          </div>
+        </div>
+        <p class="note">Prize distribution takes place immediately after the completion of the finals.</p>
+      </div>
+    </section>
+
+    <section class="rule" id="s13" aria-labelledby="s13t">
+      <div class="rule__head"><span class="rule__num">13</span><h2 class="rule__title" id="s13t">Tournament Schedule</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>The schedule is published before the tournament, available via QR code and at the Tournament Desk.</li>
+        <li>Players are responsible for checking the schedule regularly.</li>
+        <li>The Tournament Committee may revise the schedule if required.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s14" aria-labelledby="s14t">
+      <div class="rule__head"><span class="rule__num">14</span><h2 class="rule__title" id="s14t">Refreshments</h2></div>
+      <div class="rule__body"><ul class="ruleset">
+        <li>Bananas will be available on site.</li>
+        <li>Refreshments are complimentary and distributed once per registered participant.</li>
+      </ul></div>
+    </section>
+
+    <section class="rule" id="s15" aria-labelledby="s15t">
+      <div class="rule__head"><span class="rule__num">15</span><h2 class="rule__title" id="s15t">Liability</h2></div>
+      <div class="rule__body">
+        <p class="lead">Participation is entirely at the player's own risk. The organizers are not responsible for:</p>
+        <ul class="ruleset">
+          <li>Personal injuries.</li>
+          <li>Loss of personal belongings.</li>
+          <li>Damage to personal equipment or vehicles.</li>
+          <li>Any unforeseen incidents beyond their control.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="rule" id="s16" aria-labelledby="s16t">
+      <div class="rule__head"><span class="rule__num">16</span><h2 class="rule__title" id="s16t">Tournament Committee</h2></div>
+      <div class="rule__body">
+        <p class="lead">The Tournament Committee reserves the right to:</p>
+        <ul class="ruleset">
+          <li>Interpret these rules.</li>
+          <li>Modify the match schedule.</li>
+          <li>Merge or cancel categories.</li>
+          <li>Resolve disputes.</li>
+          <li>Take decisions in situations not covered by this rulebook.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="foot__inner">
+    <svg class="foot__mark" viewBox="0 0 120 150" aria-hidden="true">
+      <path d="M44 66 L18 20 L102 20 L76 66 Z" fill="#ffffff" fill-opacity=".9"/>
+      <path d="M42 66 Q42 92 60 100 Q78 92 78 66 Z" fill="#e3a73a"/>
+    </svg>
+    <p class="foot__binding">All decisions of the Tournament Committee are final and binding.</p>
+    <small>Good luck on court.</small>
+  </div>
+</footer>
+
+</body>
+</html>
