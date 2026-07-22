@@ -75,6 +75,43 @@
   .hero__shuttle{flex:0 0 auto; width:150px; height:190px; filter:drop-shadow(0 12px 24px rgba(0,0,0,.28));}
   @media (max-width:640px){ .hero__shuttle{width:104px; height:132px;} .hero__inner{padding:60px 22px 44px;} }
 
+  /* ---------- match start times (hero band) ---------- */
+  .starts{
+    position:relative; z-index:2;
+    background:linear-gradient(180deg,var(--gold) 0%, #d9982c 100%);
+    border-top:3px solid rgba(255,255,255,.35);
+    box-shadow:inset 0 -3px 0 rgba(13,54,40,.18);
+  }
+  .starts__inner{
+    max-width:var(--maxw); margin:0 auto; padding:20px 22px 22px;
+    display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  }
+  .starts__tag{
+    font-family:"Archivo",sans-serif; font-weight:900; text-transform:uppercase;
+    letter-spacing:.2em; font-size:.82rem; color:var(--green-900);
+    background:rgba(255,255,255,.55); border:2px solid rgba(13,54,40,.28);
+    padding:8px 14px; border-radius:999px; white-space:nowrap;
+  }
+  .starts__slots{display:flex; gap:14px; flex-wrap:wrap; flex:1 1 auto;}
+  .slot{
+    flex:1 1 240px; background:var(--green-900); border-radius:12px;
+    padding:14px 20px; display:flex; align-items:center; justify-content:space-between;
+    gap:16px; box-shadow:0 6px 18px rgba(13,54,40,.28);
+  }
+  .slot__label{
+    font-family:"Archivo",sans-serif; font-weight:800; text-transform:uppercase;
+    letter-spacing:.16em; font-size:.9rem; color:var(--gold-soft);
+  }
+  .slot__time{
+    font-family:"Archivo",sans-serif; font-weight:900; color:#fff;
+    font-size:clamp(1.8rem,4.4vw,2.5rem); line-height:1; letter-spacing:-.01em; white-space:nowrap;
+  }
+  .slot__time em{font-style:normal; font-size:.52em; letter-spacing:.06em; margin-left:4px; color:var(--gold);}
+  @media (max-width:560px){
+    .starts__inner{padding:16px 22px 18px; gap:14px;}
+    .slot{padding:12px 16px;}
+  }
+
   /* ---------- at a glance ---------- */
   .glance{background:var(--green-900); border-top:3px solid var(--gold);}
   .glance__grid{
@@ -176,7 +213,9 @@
     :root{--bg:#fff;}
     body{font-size:11.5pt;}
     .print-btn{display:none !important;}
-    .hero,.glance,.foot{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .hero,.glance,.foot,.starts{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .starts{break-inside:avoid; page-break-inside:avoid;}
+    .starts__inner{padding:12px 0;}
     .hero__inner{padding:26px 0;}
     .toc{display:none;}
     .rule{border:1px solid #ccc; box-shadow:none; break-inside:avoid; page-break-inside:avoid; margin:10px 0; padding:16px 18px;}
@@ -227,6 +266,22 @@
       <path d="M42 66 L78 66" stroke="#c98a1f" stroke-width="3"/>
       <ellipse cx="60" cy="99" rx="10" ry="6" fill="#c98a1f"/>
     </svg>
+  </div>
+
+  <div class="starts">
+    <div class="starts__inner">
+      <span class="starts__tag">Match Start Times</span>
+      <div class="starts__slots">
+        <div class="slot">
+          <span class="slot__label">Singles</span>
+          <span class="slot__time">8:00 <em>AM</em></span>
+        </div>
+        <div class="slot">
+          <span class="slot__label">Doubles</span>
+          <span class="slot__time">12:00 <em>PM</em></span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
